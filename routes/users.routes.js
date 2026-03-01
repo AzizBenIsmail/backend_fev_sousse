@@ -5,12 +5,12 @@ const uploadfile = require('../middleware/uploadfile');
 const {requireAuthUser} = require('../middleware/authMiddlewares');
 /* GET users listing. */
 router.get('/esm', userController.esm);
-router.get('/getAllUsers', userController.getAllUsers);
-router.post('/addUser', userController.addUser);
-router.post('/addAdmin', userController.addAdmin);
-router.delete('/deleteUser/:id', userController.deleteUser);
-router.put('/updateUser/:id', userController.updateUser);
-router.post('/addUserWithPhoto', uploadfile.single('photo'), userController.addUserWithPhoto);
+router.get('/getAllUsers', requireAuthUser,userController.getAllUsers); //protected route
+router.post('/singin', userController.addUser); //signup route (unprotected)
+router.post('/addAdmin', requireAuthUser,userController.addAdmin); //route to add admin (unprotected, should be protected in real app)
+router.delete('/deleteUser/:id',requireAuthUser, userController.deleteUser); //protected route
+router.put('/updateUser/:id',requireAuthUser, userController.updateUser); //protected route
+router.post('/addUserWithPhoto',requireAuthUser, uploadfile.single('photo'), userController.addUserWithPhoto); //protected route
 router.post('/login', userController.login);
-router.get('/getAuthUser', requireAuthUser, userController.getAuthUser);
+router.get('/getAuthUser', requireAuthUser, userController.getAuthUser); //protected route + session storage
 module.exports = router;

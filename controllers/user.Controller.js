@@ -121,6 +121,7 @@ module.exports.addUserWithPhoto = async (req, res) => {
 //xH69EHUeSny3WZfkxWj9VjPdfQL1oTDYV0I1GzjmzhY
 
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const maxAge = 2 * 60; // 2 minutes in seconds
 
