@@ -12,5 +12,6 @@ router.delete('/deleteUser/:id',requireAuthUser, userController.deleteUser); //p
 router.put('/updateUser/:id',requireAuthUser, userController.updateUser); //protected route
 router.post('/addUserWithPhoto',requireAuthUser, uploadfile.single('photo'), userController.addUserWithPhoto); //protected route
 router.post('/login', userController.login);
+router.get('/logout',requireAuthUser, userController.logout);
 router.get('/getAuthUser', requireAuthUser, userController.getAuthUser); //protected route + session storage
 module.exports = router;

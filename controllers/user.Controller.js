@@ -123,7 +123,7 @@ module.exports.addUserWithPhoto = async (req, res) => {
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const maxAge = 2 * 60; // 2 minutes in seconds
+const maxAge = 2 * 60 * 60; //2 hours in seconds
 
 const secretKey = process.env.netSecret;
 
@@ -155,3 +155,13 @@ module.exports.getAuthUser = async (req,res)=>{
     res.status(500).json({error:error.messge})
   }
 }
+
+module.exports.logout = async (req, res) => {
+  try {
+    res.clearCookie("token");
+    req.session.destroy();
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
